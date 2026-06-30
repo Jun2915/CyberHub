@@ -1,12 +1,10 @@
 // File: services/authService.js
 // Purpose: Handles all Supabase authentication and database interactions.
-
 import { supabase } from '../supabaseClient'; // Adjust this path if your file is in a different folder
 
-/**
- * Registers a new user in Supabase Auth and creates their profile in the database.
- */
-export const registerUser = async (email, password, fullName, phone) => {
+
+//Registers a new user in Supabase Auth and creates their profile in the database.
+export const registerUser = async (email, password, fullName, phone, gender) => {
   try {
     // Step 1: Create the account in Supabase Auth (The hidden safe)
     const { data: authData, error: authError } = await supabase.auth.signUp({
@@ -26,7 +24,8 @@ export const registerUser = async (email, password, fullName, phone) => {
           email: email,
           full_name: fullName,
           phone_number: phone,
-          role: 'user' // Hardcoded role for security
+          gender: gender,
+          role: 'user' 
         }
       ]);
 
@@ -38,9 +37,8 @@ export const registerUser = async (email, password, fullName, phone) => {
   }
 };
 
-/**
- * Logs in an existing user using email and password.
- */
+
+// Logs in an existing user using email and password.
 export const loginUser = async (email, password) => {
   try {
     // Authenticate with Supabase
