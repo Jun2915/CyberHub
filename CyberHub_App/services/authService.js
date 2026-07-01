@@ -43,7 +43,7 @@ export const loginUser = async (email, password) => {
   try {
     // Authenticate with Supabase
     const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
+      email: email.trim(), // Trim whitespace from email
       password: password,
     });
 
